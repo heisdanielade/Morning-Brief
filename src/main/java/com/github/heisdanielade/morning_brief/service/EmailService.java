@@ -9,17 +9,25 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class EmailService {
-    @Autowired
-    private JavaMailSender emailSender;
+    private final JavaMailSender emailSender;
 
-    public void sendEmail(String to, String subject, String text) throws MessagingException {
-        MimeMessage message = emailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+    public EmailService(JavaMailSender emailSender) {
+        this.emailSender = emailSender;
+    }
 
-        helper.setTo(to);
-        helper.setSubject(subject);
-        helper.setText(text, true);
+    public void sendEmail(String to, String subject, String text) {
+        try{
+            MimeMessage message = emailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-        emailSender.send(message);
+            helper.setTo(to);
+            helper.setSubject(subject);
+            helper.setText(text, true);
+
+            emailSender.send(message);
+            System.out.println("\n(i) Email sent successfully to " + to);
+        } catch (MessagingException e){
+            throw new RuntimeException("\n(e) Failed to send email", e);
+        }
     }
 }
