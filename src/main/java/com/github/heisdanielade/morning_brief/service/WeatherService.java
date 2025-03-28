@@ -36,7 +36,7 @@ public class WeatherService {
             double temperature = rootNode.get("main").get("temp").asDouble();
             String description = rootNode.get("weather").get(0).get("description").asText();
 
-            return "City: " + cityName + "\nTemperature: " + temperature + "°C\nCondition: " + description;
+            return temperature + "°c with a " + description;
         }catch (HttpClientErrorException e) {
             return "Error fetching weather data: " + e.getStatusCode() + " - " + e.getResponseBodyAsString();
         } catch (JsonProcessingException e) {
