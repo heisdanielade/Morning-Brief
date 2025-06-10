@@ -25,7 +25,7 @@ public class DailySummaryService {
     }
 
     public String generateDailyBrief() {
-        String city = "Zielona Góra";
+        String city = "Paris";
         String weatherInfo = weatherService.getWeatherInfo(city);
         return getEmailTemplate(city, weatherInfo);
 
