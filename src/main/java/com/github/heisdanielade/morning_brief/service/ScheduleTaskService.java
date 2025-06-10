@@ -17,7 +17,7 @@ public class ScheduleTaskService {
     @Scheduled(cron = "0 0 7 * * ?") // Every day at 7 AM
     public void sendDailyEmail() {
         String emailContent = dailySummaryService.generateDailyBrief();
-        String recipient = "danieladeofficial@gmail.com";
+        String recipient = "test@gmail.com";
         String emailSubject = "🌞 Your Morning Brief";
         emailService.sendEmail(recipient, emailSubject, emailContent);
     }
